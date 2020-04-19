@@ -50,11 +50,12 @@ int main(int argc, const char * argv[])
 {
 	printf(int argc, const char *argv[])
 	
-	if ( x == 100 )
+	while(go)
 	{
-		x = halveIt(x);
+		x = halveIt(x)
+		if ( x < 100 )
+			go = 0;
+		printf("Program result: %d\n", x);
 	}
-
-	printf("Program result: %d\n", x);
 	return 0;
 }
