@@ -10,14 +10,14 @@ void explainVariables()
 	long whatever; /* obsolete, same as int on 32 bit systems */
 	long long whateverlong; /* 8 bytes, 64 bit */
 
-	// unsigned 
-	unsigned int  il = 0; // 0 to 4 billion 
+	// unsigned
+	unsigned int  il = 0; // 0 to 4 billion
 	unsigned char c1 = 0; // 0..255
 
-	/* floating points */ 
+	/* floating points */
 	float w = 1.5f; // 4 byte
 	double q = 1.500000000001 ; // 8 byte - Precision
-	
+
 	float w2;
 	w2 = 3.0f;
 
@@ -27,10 +27,10 @@ void explainVariables()
 
 void doSomething()
 {
-	int x = 2, y = 5; 
+	int x = 2, y = 5;
 	x += 5;
 
-	x = 1; 
+	x = 1;
 	x = !x; // flip to zero.
 
 	printf("Result is: %d", x);
@@ -49,7 +49,7 @@ int halveIt(int number)
 int main(int argc, const char * argv[])
 {
 	printf(int argc, const char *argv[])
-	
+
 	while(go)
 	{
 		x = halveIt(x)
