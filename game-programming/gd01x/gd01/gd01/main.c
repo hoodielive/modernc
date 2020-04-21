@@ -1,11 +1,3 @@
-//
-//  main.c
-//  gd01
-//
-//  Created by Larry Solomon on 4/19/20.
-//  Copyright © 2020 Apokueo. All rights reserved.
-//
-
 #include <SDL2/SDL.h>
 #include <stdio.h>
 
