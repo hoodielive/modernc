@@ -14,5 +14,20 @@ int main()
     }
 
     printf("Size of name is %d\n", letter);
+    printf("Size of name is %lu\n", strlen(name));
+
+    if (strcmp(name, "Larry") == 0)
+    {
+        printf("You get access!\n");
+    }
+    char copy[20];
+    strcpy(copy, name);
+
+    printf("Copy of name is %s\n", copy);
+    
+    char lastName[] = "Solomon";
+    strcat(copy, lastName);
+
+    printf("Fullname is: %s\n ", copy);
     return 0;
 }
