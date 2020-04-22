@@ -2,7 +2,7 @@
 
 void square(int *input)
 {
-	*input *= *input;
+ *input *= *input;
 }
 
 int main()
@@ -23,13 +23,13 @@ int main()
   printf("a  = %d\n", a);
   printf("*b  = %d\n", *b);
 
-	int x = 5;
-	square(&x);
-	printf("%d\n", x);
+ int x = 5;
+ square(&x);
+ printf("%d\n", x);
 
-	int size = 6;
-	int ages[] = { 2, 43, 63000, 23, 05, 53 };
+ int size = 6;
+ int ages[] = { 2, 43, 63000, 23, 05, 53 };
 
-	printf("memory size of ages is : %lu\n", sizeof(ages));
+ printf("memory size of ages is : %lu\n", sizeof(ages));
   return 0;
 }
