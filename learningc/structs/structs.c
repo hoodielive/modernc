@@ -37,5 +37,17 @@ int main()
 					myHouse.owner
 	);
 
+	position path[] = {{ 0, 1 }, { 1, 2 }, { 3, 4 }};
+
+	int size = 3;
+
+	for (int i=0; i < size; i++)
+	{
+		printf("%d %d\n", path[i].x, path[i].y);
+	}
+
+	buildingPlan *structPointer = &myHouse;
+	printf("Position x: %d\n", structPointer->position.x);
+
 	return 0;
 }
