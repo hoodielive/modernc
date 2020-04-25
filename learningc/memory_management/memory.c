@@ -66,7 +66,9 @@ int main()
 	free(arr);
 
 	User *me = createUser("Law Moor", 99, false);
-	printf("Law Moor is %d years old!!\n", me->age);
+	printf("Sogo Aje is %d years old!!\n", me->age);
+
+	free(me);
 
 	return 0;
 }
