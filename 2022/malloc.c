@@ -16,6 +16,15 @@ static uint8_t MEMORY_POOL[64];
 
 static uint64_t MEMORY_POOL_USED = 0;
 
+// Tracker.
+struct free_entry
+{
+  void *ptr;
+  uint64_t size;
+};
+
+typedef struct free_entry free_entry_t;
+
 // Write your own malloc, gosh darn it!
 // voids mean nothing. A memory address but
 // we don't know what is there. Perfect example,
@@ -43,7 +52,7 @@ void free(void *ptr)
   
 }
 
-int main() 
+int main()
 {
 
   // Remember a char* is a memory address at which
@@ -63,7 +72,7 @@ int main()
   strcpy(a, "foo\0");
   strcpy(a, "bar\0");
   strcpy(a, "baz\0");
-  
+
   // Print strings.
   printf("%s\n", a);
   printf("%s\n", b);
