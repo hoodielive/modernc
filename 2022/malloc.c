@@ -25,8 +25,31 @@ struct free_entry
 
 typedef struct free_entry free_entry_t;
 
+static free_entry_t FREE_LIST[64] =
+{
+  (free_entry_t) { .ptr = MEMORY_POOL, .size = 64, },
+};
+
+static uint64_t FREE_LIST_USED = 1;
+
+free_entry_t *find_free_entry(size_t size)
+{
+  for (uint64_t i=0; i < FREE_LIST_USED; i++)
+  {
+    free_entry_t *entry;
+    entry = &FREE_LIST[i];
+
+    if (entry-size >= size)
+    {
+      return entry;
+    }
+  }
+
+  abort();
+}
+
 // Write your own malloc, gosh darn it!
-// voids mean nothing. A memory address but
+// voids mean nothing. It is a memory address but
 // we don't know what is there. Perfect example,
 // 64 bit unsigned integer (uint64_t). Just points
 // to a offset in memory.
@@ -36,20 +59,34 @@ void *malloc(size_t size)
   /*
    * 0                            63
    * ==============================
-   * aaaa
+   * SSSSSSSSaaaaSSSSSSSSbbbb
+   *         ^           ^
+   *         a           b
    */
 
-  void *ptr;
+  size += 8;
 
-  ptr = MEMORY_POOL + MEMORY_POOL_USED;
-  MEMORY_POOL_USED += size;
+  free_entry_t *entry;
+  entry = find_free_entry(size);
+  void *ptr;
+  ptr = entry->ptr;
+  
+  entry->ptr += size;
+  entry->size -= size;
 
   return ptr;
-}
+};
 
 void free(void *ptr)
 {
   
+  free_entry_t *entry;
+  entry = &FREE_LIST[FREE_LIST_USED];
+
+  //entry->ptr = something;
+  //entry->size = something;
+
+  FREE_LIST_USED++;
 }
 
 int main()
