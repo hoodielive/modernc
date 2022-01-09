@@ -2,9 +2,30 @@
 #include <string.h>
 #include <stdio.h>
 
+// Write your own malloc, gosh darn it!
+// voids mean nothing. A memory address but
+// we don't know what is there. Perfect example,
+// 64 bit unsigned integer (uint64_t). Just points
+// to a offset in memory.
+
+void *malloc(size_t size)
+{
+  
+}
+
+void free(void *ptr)
+{
+  
+}
 
 int main() 
 {
+
+  // Remember a char* is a memory address at which
+  // there are some characters. However, void* does not
+  // imply that there is a memory address where there are
+  // some voids.
+
   char *a;
   char *b;
   char *c;
