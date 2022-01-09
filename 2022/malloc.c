@@ -1,6 +1,20 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdint.h>
+// or so that there are no complaints about uint8_t or uint64_t
+// being an unknown type name.
+#include <inttypes.h>
+
+// Global array of bytes. Memory pool of size 64.
+// If you try to allocate more than this, something
+// bad will happen lol.
+
+static uint8_t MEMORY_POOL[64];
+
+// Not initalizing you homie.
+
+static uint64_t MEMORY_POOL_USED = 0;
 
 // Write your own malloc, gosh darn it!
 // voids mean nothing. A memory address but
@@ -10,7 +24,18 @@
 
 void *malloc(size_t size)
 {
-  
+  /*
+   * 0                            63
+   * ==============================
+   * aaaa
+   */
+
+  void *ptr;
+
+  ptr = MEMORY_POOL + MEMORY_POOL_USED;
+  MEMORY_POOL_USED += size;
+
+  return ptr;
 }
 
 void free(void *ptr)
