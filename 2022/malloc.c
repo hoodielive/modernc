@@ -6,6 +6,7 @@
 // being an unknown type name.
 #include <inttypes.h>
 
+// Read brk, sbrk (BSD System Calls - Linux)
 // Global array of bytes. Memory pool of size 64.
 // If you try to allocate more than this, something
 // bad will happen lol.
@@ -32,6 +33,16 @@ static free_entry_t FREE_LIST[64] =
 
 static uint64_t FREE_LIST_USED = 1;
 
+void print_free_list()
+{
+  for (uint64_t i=0; i < FREE_LIST_USED; i++)
+  {
+    free_entry_t *entry;
+    entry = &FREE_LIST[i];
+    printf(" %p (%lu)\n", entry->ptr, entry->size);
+  }
+}
+
 free_entry_t *find_free_entry(size_t size)
 {
   for (uint64_t i=0; i < FREE_LIST_USED; i++)
@@ -39,7 +50,7 @@ free_entry_t *find_free_entry(size_t size)
     free_entry_t *entry;
     entry = &FREE_LIST[i];
 
-    if (entry-size >= size)
+    if (entry->size >= size)
     {
       return entry;
     }
@@ -68,29 +79,53 @@ void *malloc(size_t size)
 
   free_entry_t *entry;
   entry = find_free_entry(size);
-  void *ptr;
-  ptr = entry->ptr;
-  
+  void *base_ptr;
+  uint64_t *size_ptr;
+  void  *user_ptr;
+
+  base_ptr = entry->ptr;
+  size_ptr = base_ptr;
+  user_ptr = base_ptr + 8;
+
+  *size_ptr = size;
+
   entry->ptr += size;
   entry->size -= size;
 
-  return ptr;
+  print_free_list();
+
+  return user_ptr;
 };
 
-void free(void *ptr)
+void free(void *user_ptr)
 {
   
   free_entry_t *entry;
   entry = &FREE_LIST[FREE_LIST_USED];
 
-  //entry->ptr = something;
-  //entry->size = something;
+  void *base_ptr;
+  uint64_t *size_ptr;
+  uint64_t size;
+
+  base_ptr = user_ptr - 8;
+  size_ptr = base_ptr;
+
+  size = *size_ptr;
+
+  entry->ptr = base_ptr;
+  entry->size = size;
 
   FREE_LIST_USED++;
+
+  printf("FREE\n");
+  print_free_list();
+
 }
 
 int main()
 {
+
+  print_free_list();
 
   // Remember a char* is a memory address at which
   // there are some characters. However, void* does not
